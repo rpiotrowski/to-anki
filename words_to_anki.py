@@ -6,7 +6,7 @@ def cleanSubtitles():
     subtitlesBefore = open(sys.argv[1],"r")
     subtitlesCleaned = open('subtitles','w')
     
-    #zmienna do zamapiętania lini urwanej
+    #viriable to remember first part of a sentence
     lineBefore = ""
     for line in subtitlesBefore:
         line = line.replace("...","")
