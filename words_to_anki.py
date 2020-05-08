@@ -31,11 +31,25 @@ def getPronounciation(word):
         url = 'https://dictionary.cambridge.org/dictionary/english/%s' % (word)
         dictionarySite = requests.get(url)
         dictionarySoup = bs4.BeautifulSoup(dictionarySite.text, 'html.parser')
-        soup = dictionarySoup.select('.ipa')
-        pronounciation = [soup[0].getText(),soup[1].getText()]
+        pronounciationSoup = dictionarySoup.select('.ipa')
+        pronounciation = [pronounciationSoup[0].getText(),pronounciationSoup[1].getText()]
         return pronounciation
     except:
         return ["",""]
+
+def getPolishMeanings(word):
+    try:
+        url = "https://www.diki.pl/slownik-angielskiego?q=%s" % (word)
+        dikiResponse = requests.get(url)
+        dikiSoup = bs4.BeautifulSoup(dikiResponse.text,'html.parser')
+        #TODO fix meanings from links in nav
+        meaningsSoup = dikiSoup.select('.plainLink')
+        translation = []
+        for elem in meaningsSoup:
+            translation.append(elem.getText())
+        return translation
+    except:
+        return [""]
 
 
 cleanSubtitles()
@@ -49,8 +63,10 @@ for line in subtitles:
     for vocab in vocabulary:
         if vocab in line:
             pronounciation = getPronounciation(vocab)
+            polishMeanings = getPolishMeanings(vocab)
             line = line.replace("\n","")
-            to_anki.write(vocab + ';;' + vocab + ';' + line + ';;' + pronounciation[0]+ ';' + pronounciation[1] + '\n')
+            #TODO paste all possible meanings
+            to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';;' + pronounciation[0]+ ';' + pronounciation[1] + '\n')
             #Only find first sentence with that vocabulary
             vocabulary.remove(vocab)
 
