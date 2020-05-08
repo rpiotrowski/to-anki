@@ -6,7 +6,7 @@ def cleanSubtitles():
     subtitlesBefore = open(sys.argv[1],"r")
     subtitlesCleaned = open('subtitles','w')
     
-    #zmienna do zamapiętania linii urwanej
+    #zmienna do zamapiętania lini urwanej
     lineBefore = ""
     for line in subtitlesBefore:
         line = line.replace("...","")
@@ -50,5 +50,7 @@ for line in subtitles:
         if vocab in line:
             pronounciation = getPronounciation(vocab)
             line = line.replace("\n","")
-            to_anki.write(vocab + ';' + vocab + ';' + line + ';' + pronounciation[0]+ ';' + pronounciation[1] + '\n')
+            to_anki.write(vocab + ';;' + vocab + ';' + line + ';;' + pronounciation[0]+ ';' + pronounciation[1] + '\n')
+            #Only find first sentence with that vocabulary
+            vocabulary.remove(vocab)
 
