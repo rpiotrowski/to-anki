@@ -39,11 +39,28 @@ def getPronounciation(word):
 
 def getPolishMeanings(word):
     try:
+        #word = word.replace(" ","+")
+        #TODO fix for example for ATM card
         url = "https://www.diki.pl/slownik-angielskiego?q=%s" % (word)
         dikiResponse = requests.get(url)
         dikiSoup = bs4.BeautifulSoup(dikiResponse.text,'html.parser')
+        # print(type(dikiSoup))
         #TODO fix meanings from links in nav
+        # soup = dikiSoup.find("div", {"class": "diki-results-left-column"})
+        # print(len(soup))
+        # print(soup[0])
+        # soup = soup[0].findAll("a", {"class": ".plainLink"})
+        # print(soup)
+
+        # dikiSoup2 = bs4.BeautifulSoup(soup[0],'html.parser')
+        # print(type(dikiSoup2))
+        # print(soup)
+        # soup = soup.select('.plainLink')
+        # print(soup)
+
         meaningsSoup = dikiSoup.select('.plainLink')
+        print(meaningsSoup)
+
         translation = []
         for elem in meaningsSoup:
             translation.append(elem.getText())
@@ -58,6 +75,7 @@ subtitles = open('subtitles','r')
 to_anki = open('to_anki','w')
 
 vocabulary = list(input("Podaj po przecinku wyrażenia jakie mam poszukać\n").split(','))
+comment = input("Podaj komentarz jaki chcesz umiescic w kartach")
 
 for line in subtitles:
     for vocab in vocabulary:
@@ -66,7 +84,7 @@ for line in subtitles:
             polishMeanings = getPolishMeanings(vocab)
             line = line.replace("\n","")
             #TODO paste all possible meanings
-            to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';;' + pronounciation[0]+ ';' + pronounciation[1] + '\n')
+            to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';' + comment +';' + pronounciation[0]+ ';' + pronounciation[1] + '\n')
             #Only find first sentence with that vocabulary
             vocabulary.remove(vocab)
 
