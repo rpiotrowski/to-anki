@@ -1,2 +1,2 @@
 # to-anki
-This program produce flashcards to Anki from subtitles.
+This program produces flashcards to Anki from subtitles.
