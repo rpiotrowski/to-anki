@@ -75,7 +75,7 @@ subtitles = open('subtitles','r')
 to_anki = open('to_anki','w')
 
 vocabulary = list(input("Podaj po przecinku wyrażenia jakie mam poszukać\n").split(','))
-comment = input("Podaj komentarz jaki chcesz umiescic w kartach")
+comment = input("Podaj komentarz jaki chcesz umiescic w kartach\n")
 
 for line in subtitles:
     for vocab in vocabulary:
