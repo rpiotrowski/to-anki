@@ -26,14 +26,14 @@ def cleanSubtitles():
         else:
             lineBefore = line.replace("\n","")
 
-def getPronounciation(word):
+def getPronunciation(word):
     try:
         url = 'https://dictionary.cambridge.org/dictionary/english/%s' % (word)
         dictionarySite = requests.get(url)
         dictionarySoup = bs4.BeautifulSoup(dictionarySite.text, 'html.parser')
-        pronounciationSoup = dictionarySoup.select('.ipa')
-        pronounciation = [pronounciationSoup[0].getText(),pronounciationSoup[1].getText()]
-        return pronounciation
+        pronunciationSoup = dictionarySoup.select('.ipa')
+        pronunciation = [pronunciationSoup[0].getText(),pronunciationSoup[1].getText()]
+        return pronunciation
     except:
         return ["",""]
 
@@ -80,11 +80,11 @@ comment = input("Podaj komentarz jaki chcesz umiescic w kartach\n")
 for line in subtitles:
     for vocab in vocabulary:
         if vocab in line:
-            pronounciation = getPronounciation(vocab)
+            pronunciation = getPronunciation(vocab)
             polishMeanings = getPolishMeanings(vocab)
             line = line.replace("\n","")
             #TODO paste all possible meanings
-            to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';' + comment +';' + pronounciation[0]+ ';' + pronounciation[1] + '\n')
+            to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';' + comment +';' + pronunciation[0]+ ';' + pronunciation[1] + '\n')
             #Only find first sentence with that vocabulary
             print(vocab,'added.')
             vocabulary.remove(vocab)
