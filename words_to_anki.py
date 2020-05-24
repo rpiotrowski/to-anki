@@ -59,7 +59,7 @@ def getPolishMeanings(word):
         # print(soup)
 
         meaningsSoup = dikiSoup.select('.plainLink')
-        print(meaningsSoup)
+        # print(meaningsSoup)
 
         translation = []
         for elem in meaningsSoup:
@@ -86,5 +86,6 @@ for line in subtitles:
             #TODO paste all possible meanings
             to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';' + comment +';' + pronounciation[0]+ ';' + pronounciation[1] + '\n')
             #Only find first sentence with that vocabulary
+            print(vocab,'added.')
             vocabulary.remove(vocab)
 
