@@ -77,6 +77,7 @@ to_anki = open('to_anki','w')
 vocabulary = list(input("Podaj po przecinku wyrażenia jakie mam poszukać\n").split(','))
 comment = input("Podaj komentarz jaki chcesz umiescic w kartach\n")
 
+fileLineNumbers = 0
 for line in subtitles:
     for vocab in vocabulary:
         if vocab in line:
@@ -88,4 +89,6 @@ for line in subtitles:
             #Only find first sentence with that vocabulary
             print(vocab,'added.')
             vocabulary.remove(vocab)
+            fileLineNumbers += 1
+print(fileLineNumbers, 'lines added.')
 
