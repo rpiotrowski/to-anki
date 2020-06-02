@@ -1,6 +1,6 @@
 #!python3 
 
-import sys, re, bs4, requests
+import sys, re, bs4, requests, openpyxl
 
 def cleanSubtitles():
     subtitlesBefore = open(sys.argv[1],"r")
@@ -68,8 +68,23 @@ def getPolishMeanings(word):
     except:
         return [""]
 
+def getFrequency(frequencySheet,word):
+    for i in range(4,frequencySheet.max_row):
+        if frequencySheet.cell(row=i, column=2).value == word:
+            # returns position on frequency list
+            return frequencySheet.cell(row=i,column=1).value
+    return "Out of range"
+
 
 cleanSubtitles()
+wb = openpyxl.load_workbook('frequency.xlsx')
+# print(wb.sheetnames)
+frequencySheet = wb['10000k']
+# print(sheet['A1'].value)
+
+
+
+
 
 subtitles = open('subtitles','r')
 to_anki = open('to_anki','w')
@@ -88,6 +103,7 @@ for line in subtitles:
             to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';' + comment +';' + pronunciation[0]+ ';' + pronunciation[1] + '\n')
             #Only find first sentence with that vocabulary
             print(vocab,'added.')
+            print(getFrequency(frequencySheet,vocab))
             vocabulary.remove(vocab)
             fileLineNumbers += 1
 print(fileLineNumbers, 'lines added.')
