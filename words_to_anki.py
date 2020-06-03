@@ -72,7 +72,7 @@ def getFrequency(frequencySheet,word):
     for i in range(4,frequencySheet.max_row):
         if frequencySheet.cell(row=i, column=2).value == word:
             # returns position on frequency list
-            return frequencySheet.cell(row=i,column=1).value
+            return str(frequencySheet.cell(row=i,column=1).value)
     return "Out of range"
 
 
@@ -98,12 +98,12 @@ for line in subtitles:
         if vocab in line:
             pronunciation = getPronunciation(vocab)
             polishMeanings = getPolishMeanings(vocab)
+            frequency = getFrequency(frequencySheet,vocab)
             line = line.replace("\n","")
             #TODO paste all possible meanings
-            to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';' + comment +';' + pronunciation[0]+ ';' + pronunciation[1] + '\n')
+            to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';' + comment +';' + pronunciation[0]+ ';' + pronunciation[1] + ';' + frequency + '\n')
             #Only find first sentence with that vocabulary
             print(vocab,'added.')
-            print(getFrequency(frequencySheet,vocab))
             vocabulary.remove(vocab)
             fileLineNumbers += 1
 print(fileLineNumbers, 'lines added.')
