@@ -64,7 +64,11 @@ def getPolishMeanings(word):
         translation = []
         for elem in meaningsSoup:
             translation.append(elem.getText())
-        return translation
+        
+        if translation:
+            return translation
+        else:
+            return [""]
     except:
         return [""]
 
@@ -100,11 +104,17 @@ for line in subtitles:
             polishMeanings = getPolishMeanings(vocab)
             frequency = getFrequency(frequencySheet,vocab)
             line = line.replace("\n","")
-            #TODO paste all possible meanings
+            #TODO paste all possible meaningsp
             to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';' + comment +';' + pronunciation[0]+ ';' + pronunciation[1] + ';' + frequency + '\n')
             #Only find first sentence with that vocabulary
             print(vocab,'added.')
             vocabulary.remove(vocab)
             fileLineNumbers += 1
 print(fileLineNumbers, 'lines added.')
+
+if not vocabulary:
+    print('Vocabulary which were not added')
+    print(vocabulary)
+else:
+    print('All wocabulary were added')
 
