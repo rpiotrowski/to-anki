@@ -1,30 +1,6 @@
-#!python3 
+import sys, bs4, requests, openpyxl
+from Cleaner import Cleaner
 
-import sys, re, bs4, requests, openpyxl
-
-def cleanSubtitles():
-    subtitlesBefore = open(sys.argv[1],"r")
-    subtitlesCleaned = open('subtitles','w')
-    
-    #viriable to remember first part of a sentence
-    lineBefore = ""
-    for line in subtitlesBefore:
-        line = line.replace("...","")
-        line = re.sub(r'^\d+\n',"",line)
-        line = re.sub(r'^\n',"",line)
-        line = re.sub(r'^\d.*\d$\n',"",line)
-
-        if not line:
-            continue
-
-        if lineBefore:
-            line = lineBefore + ' ' + line
-            lineBefore = ""
-          
-        if line[-2]=='.' or line[-2]=='?' or line[-2]=='!':
-            subtitlesCleaned.write(line)        
-        else:
-            lineBefore = line.replace("\n","")
 
 def getPronunciation(word):
     try:
@@ -80,7 +56,10 @@ def getFrequency(frequencySheet,word):
     return "Out of range"
 
 
-cleanSubtitles()
+cleaner = Cleaner(sys.argv[1])
+cleaner.cleanSubtitles()
+
+# cleanSubtitles()
 wb = openpyxl.load_workbook('frequency.xlsx')
 # print(wb.sheetnames)
 frequencySheet = wb['10000k']
