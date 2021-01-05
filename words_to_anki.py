@@ -3,11 +3,11 @@ from Cleaner import Cleaner
 from Anki import Anki
 
 
-def getFrequency(frequencySheet,word):
-    for i in range(4,frequencySheet.max_row):
+def getFrequency(frequencySheet, word):
+    for i in range(4, frequencySheet.max_row):
         if frequencySheet.cell(row=i, column=2).value == word:
             # returns position on frequency list
-            return str(frequencySheet.cell(row=i,column=1).value)
+            return str(frequencySheet.cell(row=i, column=1).value)
     return "Out of range"
 
 
@@ -20,8 +20,8 @@ frequencySheet = wb['10000k']
 # print(sheet['A1'].value)
 
 
-subtitles = open('subtitles','r')
-to_anki = open('to_anki','w')
+subtitles = open('subtitles', 'r')
+to_anki = open('to_anki', 'w')
 
 vocabulary = list(input("Podaj po przecinku wyrażenia jakie mam poszukać\n").split(','))
 comment = input("Podaj komentarz jaki chcesz umiescic w kartach\n")
@@ -33,12 +33,13 @@ for line in subtitles:
             anki = Anki(vocab)
             pronunciation = anki.getPronunciation()
             polishMeanings = anki.getPolishMeanings()
-            frequency = getFrequency(frequencySheet,vocab)
-            line = line.replace("\n","")
-            #TODO paste all possible meaningsp
-            to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';' + comment +';' + pronunciation[0]+ ';' + pronunciation[1] + ';' + frequency + '\n')
-            #Only find first sentence with that vocabulary
-            print(vocab,'added.')
+            frequency = getFrequency(frequencySheet, vocab)
+            line = line.replace("\n", "")
+            # TODO paste all possible meaningsp
+            to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';' + comment + ';' + pronunciation[0] + ';' +
+                          pronunciation[1] + ';' + frequency + '\n')
+            # Only find first sentence with that vocabulary
+            print(vocab, 'added.')
             vocabulary.remove(vocab)
             fileLineNumbers += 1
 print(fileLineNumbers, 'rows added.')
@@ -48,4 +49,3 @@ if not vocabulary:
     print(vocabulary)
 else:
     print('All wocabulary were added')
-

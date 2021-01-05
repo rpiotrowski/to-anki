@@ -1,32 +1,33 @@
 import requests, bs4
 
+
 class Anki:
 
-    def __init__(self,word):
+    def __init__(self, word):
         self.word = word
 
-    def getPronunciation(self): 
+    def getPronunciation(self):
         word = self.word
         try:
             url = 'https://dictionary.cambridge.org/dictionary/english/%s' % (word)
             dictionarySite = requests.get(url)
             dictionarySoup = bs4.BeautifulSoup(dictionarySite.text, 'html.parser')
             pronunciationSoup = dictionarySoup.select('.ipa')
-            pronunciation = [pronunciationSoup[0].getText(),pronunciationSoup[1].getText()]
+            pronunciation = [pronunciationSoup[0].getText(), pronunciationSoup[1].getText()]
             return pronunciation
         except:
-            return ["",""]
+            return ["", ""]
 
     def getPolishMeanings(self):
         word = self.word
         try:
-            #word = word.replace(" ","+")
-            #TODO fix for example for ATM card
+            # word = word.replace(" ","+")
+            # TODO fix for example for ATM card
             url = "https://www.diki.pl/slownik-angielskiego?q=%s" % (word)
             dikiResponse = requests.get(url)
-            dikiSoup = bs4.BeautifulSoup(dikiResponse.text,'html.parser')
+            dikiSoup = bs4.BeautifulSoup(dikiResponse.text, 'html.parser')
             # print(type(dikiSoup))
-            #TODO fix meanings from links in nav
+            # TODO fix meanings from links in nav
             # soup = dikiSoup.find("div", {"class": "diki-results-left-column"})
             # print(len(soup))
             # print(soup[0])
@@ -45,7 +46,7 @@ class Anki:
             translation = []
             for elem in meaningsSoup:
                 translation.append(elem.getText())
-            
+
             if translation:
                 return translation
             else:
