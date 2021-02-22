@@ -2,8 +2,10 @@ import sys, openpyxl
 from Cleaner import Cleaner
 from Anki import Anki
 
+SEPARATOR = ';'
 
-def getFrequency(frequencySheet, word):
+
+def get_frequency(frequencySheet, word):
     for i in range(4, frequencySheet.max_row):
         if frequencySheet.cell(row=i, column=2).value == word:
             # returns position on frequency list
@@ -33,7 +35,7 @@ for line in subtitles:
             anki = Anki(vocab)
             pronunciation = anki.getPronunciation()
             polishMeanings = anki.getPolishMeanings()
-            frequency = getFrequency(frequencySheet, vocab)
+            frequency = get_frequency(frequencySheet, vocab)
             line = line.replace("\n", "")
             # TODO paste all possible meaningsp
             to_anki.write(polishMeanings[0] + ';;' + vocab + ';' + line + ';' + comment + ';' + pronunciation[0] + ';' +
