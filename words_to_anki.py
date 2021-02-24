@@ -1,15 +1,17 @@
-import sys, openpyxl
-from Cleaner import Cleaner
+import openpyxl
+import sys
+
 from Anki import Anki
+from Cleaner import Cleaner
 
 SEPARATOR = ';'
 
 
-def get_frequency(frequencySheet, word):
-    for i in range(4, frequencySheet.max_row):
-        if frequencySheet.cell(row=i, column=2).value == word:
+def get_frequency(frequency_sheet, word):
+    for i in range(4, frequency_sheet.max_row):
+        if frequency_sheet.cell(row=i, column=2).value == word:
             # returns position on frequency list
-            return str(frequencySheet.cell(row=i, column=1).value)
+            return str(frequency_sheet.cell(row=i, column=1).value)
     return "Out of range"
 
 
