@@ -7,7 +7,7 @@ from Cleaner import Cleaner
 SEPARATOR = ';'
 
 
-def get_frequency(frequency_sheet, word):
+def get_frequency(frequency_sheet, word: str) -> str:
     for i in range(4, frequency_sheet.max_row):
         if frequency_sheet.cell(row=i, column=2).value == word:
             # returns position on frequency list
