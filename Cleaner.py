@@ -13,10 +13,7 @@ class Cleaner:
         # viriable to remember first part of a sentence
         lineBefore = ""
         for line in subtitlesBefore:
-            line = line.replace("...", "")
-            line = re.sub(r'^\d+\n', "", line)
-            line = re.sub(r'^\n', "", line)
-            line = re.sub(r'^\d.*\d$\n', "", line)
+            line = self.clean_line_regexp(line)
 
             if not line:
                 continue
@@ -29,3 +26,10 @@ class Cleaner:
                 subtitlesCleaned.write(line)
             else:
                 lineBefore = line.replace("\n", "")
+
+    def clean_line_regexp(self, line: str) -> str:
+        line = line.replace("...", "")
+        line = re.sub(r'^\d+\n', "", line)
+        line = re.sub(r'^\n', "", line)
+        line = re.sub(r'^\d.*\d$\n', "", line)
+        return line
