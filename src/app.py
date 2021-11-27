@@ -1,8 +1,8 @@
 import openpyxl
 import sys
 
-from Anki import Anki
-from Cleaner import Cleaner
+from src.anki.Anki import Anki
+from src.anki.Cleaner import Cleaner
 
 SEPARATOR = ';'
 
@@ -16,7 +16,7 @@ def get_frequency(frequency_sheet, word: str) -> str:
 
 
 cleaner = Cleaner(sys.argv[1])
-cleaner.cleanSubtitles()
+cleaner.clean_subtitles()
 
 wb = openpyxl.load_workbook('frequency.xlsx')
 # print(wb.sheetnames)
@@ -52,4 +52,4 @@ if not vocabulary:
     print('Vocabulary which were not added')
     print(vocabulary)
 else:
-    print('All wocabulary were added')
+    print('All vocabulary were added')
