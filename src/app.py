@@ -1,8 +1,8 @@
 import openpyxl
 import sys
 
-from src.anki.Anki import Anki
-from src.anki.Cleaner import Cleaner
+from src.anki.anki import Anki
+from src.anki.cleaner import Cleaner
 
 SEPARATOR = ';'
 

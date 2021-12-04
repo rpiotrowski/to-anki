@@ -1,9 +1,4 @@
-# import os
-# import sys
-#
-# sys.path.insert(1, os.path.join(sys.path[0], '..'))
-
-from src.anki.Cleaner import Cleaner
+from src.anki.cleaner import Cleaner
 import pytest
 
 
