@@ -15,6 +15,7 @@ openpyxl = "==3.0.6"
 requests = "==2.25.1"
 soupsieve = "==2.2"
 urllib3 = "~=1.26.5"
+pytest = "*"
 
 [dev-packages]
 
