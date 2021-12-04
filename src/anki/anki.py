@@ -7,19 +7,18 @@ class Anki:
     def __init__(self, word):
         self.word = word
 
-    def getPronunciation(self):
-        word = self.word
+    def get_pronunciation(self):
         try:
-            url = 'https://dictionary.cambridge.org/dictionary/english/%s' % (word)
-            dictionarySite = requests.get(url)
-            dictionarySoup = bs4.BeautifulSoup(dictionarySite.text, 'html.parser')
-            pronunciationSoup = dictionarySoup.select('.ipa')
-            pronunciation = [pronunciationSoup[0].getText(), pronunciationSoup[1].getText()]
+            url = f'https://dictionary.cambridge.org/dictionary/english/{self.word}'
+            dictionary_site = requests.get(url)
+            dictionary_soup = bs4.BeautifulSoup(dictionary_site.text, 'html.parser')
+            pronunciation_soup = dictionary_soup.select('.ipa')
+            pronunciation = [pronunciation_soup[0].getText(), pronunciation_soup[1].getText()]
             return pronunciation
         except:
             return ["", ""]
 
-    def getPolishMeanings(self):
+    def get_polish_meanings(self):
         word = self.word
         try:
             # word = word.replace(" ","+")
@@ -41,11 +40,11 @@ class Anki:
             # soup = soup.select('.plainLink')
             # print(soup)
 
-            meaningsSoup = dikiSoup.select('.plainLink')
-            # print(meaningsSoup)
+            meanings_soup = dikiSoup.select('.plainLink')
+            # print(meanings_soup)
 
             translation = []
-            for elem in meaningsSoup:
+            for elem in meanings_soup:
                 translation.append(elem.getText())
 
             if translation:
@@ -54,3 +53,11 @@ class Anki:
                 return [""]
         except:
             return [""]
+
+    @staticmethod
+    def get_frequency(frequency_sheet, word: str) -> str:
+        for i in range(4, frequency_sheet.max_row):
+            if frequency_sheet.cell(row=i, column=2).value == word:
+                # returns position on frequency list
+                return str(frequency_sheet.cell(row=i, column=1).value)
+        return "Out of range"
