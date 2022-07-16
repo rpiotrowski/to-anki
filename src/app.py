@@ -1,9 +1,8 @@
 from anki.anki import Anki
 from anki.cleaner import Cleaner
+from config import SEPARATOR
 import openpyxl
 import sys
-
-SEPARATOR = ';'
 
 cleaner = Cleaner(sys.argv[1])
 cleaner.clean_subtitles()
