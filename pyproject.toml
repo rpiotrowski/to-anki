@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "to-anki"
+version = "0.1.0"
+description = ""
+authors = ["rpiotrowski"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+pytest = "^7.1.2"
+beautifulsoup4 = "^4.11.1"
+bs4 = "^0.0.1"
+certifi = "^2022.6.15"
+chardet = "^5.0.0"
+et-xmlfile = "^1.1.0"
+idna = "^3.3"
+jdcal = "^1.4.1"
+openpyxl = "^3.0.10"
+requests = "^2.28.1"
+soupsieve = "^2.3.2"
+urllib3 = "^1.26.10"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
