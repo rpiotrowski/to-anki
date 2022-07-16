@@ -4,5 +4,11 @@ This program produces flashcards to Anki from subtitles.
 ## Run
 
 ```
-python3 words_to_anki.py <napisy>.str
+python app.py <napisy>.str
+```
+
+## Test
+
+```shell
+pytest tests
 ```
