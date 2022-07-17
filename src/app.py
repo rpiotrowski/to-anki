@@ -4,7 +4,12 @@ from config import SEPARATOR
 import openpyxl
 import sys
 
-cleaner = Cleaner(sys.argv[1])
+try:
+    cleaner = Cleaner(sys.argv[1])
+except IndexError as e:
+    print('You must enter the subtitles filepath', f'{e!r}')
+    sys.exit(1)
+
 cleaner.clean_subtitles()
 
 wb = openpyxl.load_workbook('src/frequency.xlsx')
