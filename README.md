@@ -1,10 +1,16 @@
 # to-anki
 This program produces flashcards to Anki from subtitles.
 
+## Install
+```
+poetry install
+```
+
 ## Run
 
 ```
-python app.py <napisy>.str
+poetry shell
+python run.py <subtitles>.str
 ```
 
 ## Test

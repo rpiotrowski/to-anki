@@ -1,15 +1,13 @@
 import bs4
 import requests
+from src.anki.card import Card
 
 
-class Anki:
-
-    def __init__(self, word):
-        self.word = word
+class EnglishCard(Card):
 
     def get_pronunciation(self):
         try:
-            url = f'https://dictionary.cambridge.org/dictionary/english/{self.word}'
+            url = f'https://dictionary.cambridge.org/dictionary/english/{self._word}'
             dictionary_site = requests.get(url)
             dictionary_soup = bs4.BeautifulSoup(dictionary_site.text, 'html.parser')
             pronunciation_soup = dictionary_soup.select('.ipa')
@@ -19,11 +17,10 @@ class Anki:
             return ["", ""]
 
     def get_polish_meanings(self):
-        word = self.word
         try:
             # word = word.replace(" ","+")
             # TODO fix for example for ATM card
-            url = "https://www.diki.pl/slownik-angielskiego?q=%s" % (word)
+            url = "https://www.diki.pl/slownik-angielskiego?q=%s" % self._word
             dikiResponse = requests.get(url)
             dikiSoup = bs4.BeautifulSoup(dikiResponse.text, 'html.parser')
             # print(type(dikiSoup))
@@ -54,10 +51,4 @@ class Anki:
         except:
             return [""]
 
-    @staticmethod
-    def get_frequency(frequency_sheet, word: str) -> str:
-        for i in range(4, frequency_sheet.max_row):
-            if frequency_sheet.cell(row=i, column=2).value == word:
-                # returns position on frequency list
-                return str(frequency_sheet.cell(row=i, column=1).value)
-        return "Out of range"
+

@@ -3,3 +3,5 @@ __pycache__/
 vocabulary
 to_anki
 .idea/
+
+*.srt
