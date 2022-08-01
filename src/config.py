@@ -1,1 +1,4 @@
 SEPARATOR = ';'
+
+
+INPUT_DIRECTORY = 'input'

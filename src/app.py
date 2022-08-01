@@ -1,15 +1,23 @@
 from src.anki.english_card import EnglishCard
 from src.anki.cleaner import Cleaner
-from src.config import SEPARATOR
+from src.config import INPUT_DIRECTORY
+from pprint import pp
 import openpyxl
 import sys
+import os
 
 
 def app():
     try:
         cleaner = Cleaner(sys.argv[1])
     except IndexError as e:
-        print('You must enter the subtitles filepath', f'{e!r}')
+        subtitles_dict = {key: value for key, value in enumerate(os.listdir(f'{INPUT_DIRECTORY}'), 1)}
+        pp(subtitles_dict)
+        file_index = int(input('Choose file by index\n>>>'))
+        file_name = subtitles_dict[file_index]
+        cleaner = Cleaner(f'{INPUT_DIRECTORY}/{file_name}')
+    except KeyError as e:
+        print('Wrong key', f'{e!r}')
         sys.exit(1)
 
     cleaner.clean_subtitles()
@@ -21,7 +29,7 @@ def app():
     comment = input("Enter comment you want to add\n")
 
     rows_added_counter = 0
-    with open('output/to_anki', 'w') as to_anki, open('subtitles', 'r') as subtitles:
+    with open('output/to_anki', 'w', encoding="utf-8") as to_anki, open('subtitles', 'r') as subtitles:
         for row in subtitles:
             for word in vocabulary:
                 if word in row:
