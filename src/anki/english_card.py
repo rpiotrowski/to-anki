@@ -4,10 +4,13 @@ from src.anki.card import Card
 
 
 class EnglishCard(Card):
+    """This is a representation of english type card
+
+    """
 
     def get_pronunciation(self):
         try:
-            url = f'https://dictionary.cambridge.org/dictionary/english/{self._word}'
+            url = f'https://dictionary.cambridge.org/dictionary/english/{self.word}'
             dictionary_site = requests.get(url)
             dictionary_soup = bs4.BeautifulSoup(dictionary_site.text, 'html.parser')
             pronunciation_soup = dictionary_soup.select('.ipa')
@@ -20,7 +23,7 @@ class EnglishCard(Card):
         try:
             # word = word.replace(" ","+")
             # TODO fix for example for ATM card
-            url = "https://www.diki.pl/slownik-angielskiego?q=%s" % self._word
+            url = f"https://www.diki.pl/slownik-angielskiego?q={self.word}"
             dikiResponse = requests.get(url)
             dikiSoup = bs4.BeautifulSoup(dikiResponse.text, 'html.parser')
             # print(type(dikiSoup))

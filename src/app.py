@@ -17,13 +17,11 @@ def app():
     work_book = openpyxl.load_workbook('src/frequency.xlsx')
     frequency_sheet = work_book['10000k']
 
-    subtitles = open('subtitles', 'r')
-
     vocabulary = input("Enter vocabularies separated by colons\n").split(',')
     comment = input("Enter comment you want to add\n")
 
     rows_added_counter = 0
-    with open('output/to_anki', 'w') as to_anki:
+    with open('output/to_anki', 'w') as to_anki, open('subtitles', 'r') as subtitles:
         for row in subtitles:
             for word in vocabulary:
                 if word in row:

@@ -9,3 +9,7 @@ class Card:
                 # returns position on frequency list
                 return str(frequency_sheet.cell(row=i, column=1).value)
         return "Out of range"
+
+    @property
+    def word(self):
+        return self._word
